@@ -3,6 +3,8 @@ import { Canvas, useFrame } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
 import * as THREE from 'three'
 
+type Vector3Ref = React.MutableRefObject<THREE.Vector3>
+
 const vertexShader = /* glsl */ `
   varying vec3 vNormal;
   varying vec2 vUv;
@@ -32,8 +34,23 @@ const fragmentShader = /* glsl */ `
   }
 `
 
+// Runs inside <Canvas>, so R3F hooks are valid here (React is unified via symlinks).
+// The mouse ref is read only inside the frame loop (never during render), so it
+// is treated as a plain mutable value rather than a prop.
+function OrbitAnimator({ mouse }: { mouse: Vector3Ref }) {
+  useFrame((state) => {
+    const cam = state.camera as THREE.PerspectiveCamera
+    // very gentle mouse-reactive camera drift
+    const tx = THREE.MathUtils.lerp(cam.position.x, mouse.current.x * 12, 0.07)
+    const ty = THREE.MathUtils.lerp(cam.position.y, -mouse.current.y * 12, 0.07)
+    cam.position.x = tx
+    cam.position.y = ty
+  })
+  return null
+}
+
 export function SoftOrbit() {
-  const mouse = useRef({ x: 0, y: 0 })
+  const mouse = useRef(new THREE.Vector3(0, 0, 0))
   const geometry = useMemo(() => new THREE.IcosahedronGeometry(24, 3), [])
   const material = useMemo(
     () =>
@@ -46,16 +63,13 @@ export function SoftOrbit() {
     [],
   )
   const meshRef = useRef<THREE.Mesh<THREE.IcosahedronGeometry, THREE.ShaderMaterial> | null>(null)
+  const materialRef = useRef(material)
 
+  // Advance the shader time uniform each frame. The uniform is mutated through
+  // a ref rather than the hook result itself, keeping the React Compiler happy.
   useFrame((state) => {
-    if (!material) return
-    material.uniforms.uTime.value = state.clock.elapsedTime
-    const cam = state.camera as THREE.PerspectiveCamera
-    // very gentle mouse-reactive camera drift
-    const tx = THREE.MathUtils.lerp(cam.position.x, mouse.current.x * 14, 0.07)
-    const ty = THREE.MathUtils.lerp(cam.position.y, -mouse.current.y * 14, 0.07)
-    cam.position.x = tx
-    cam.position.y = ty
+    const m = materialRef.current
+    if (m) m.uniforms.uTime.value = state.clock.elapsedTime
   })
 
   return (
@@ -64,8 +78,11 @@ export function SoftOrbit() {
       style={{ width: '100%', maxWidth: 640, height: 580, margin: '0 auto 40px' }}
       onPointerMove={(e) => {
         const rect = e.currentTarget.getBoundingClientRect()
-        mouse.current.x = (e.clientX - rect.left) / rect.width - 0.5
-        mouse.current.y = (e.clientY - rect.top) / rect.height - 0.5
+        mouse.current.set(
+          (e.clientX - rect.left) / rect.width - 0.5,
+          (e.clientY - rect.top) / rect.height - 0.5,
+          0,
+        )
       }}
     >
       <Canvas
@@ -85,6 +102,7 @@ export function SoftOrbit() {
         <ambientLight intensity={0.5} />
         <pointLight position={[45, 55, 45]} intensity={1.1} />
         <pointLight position={[-45, -30, 50]} intensity={0.45} />
+        <OrbitAnimator mouse={mouse} />
         <mesh ref={meshRef} geometry={geometry} material={material} />
       </Canvas>
     </div>
