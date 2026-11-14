@@ -35,10 +35,16 @@ const fragmentShader = /* glsl */ `
 `
 
 // Runs inside <Canvas>, so R3F hooks are valid here (React is unified via symlinks).
-// The mouse ref is read only inside the frame loop (never during render), so it
-// is treated as a plain mutable value rather than a prop.
-function OrbitAnimator({ mouse }: { mouse: Vector3Ref }) {
+// Both the shader time uniform and the gentle mouse-reactive camera drift are
+// advanced in the same frame loop. The material is kept in a ref so its uniform
+// is mutated through the ref rather than through the prop itself.
+function OrbitAnimator({ material, mouse }: { material: THREE.ShaderMaterial; mouse: Vector3Ref }) {
+  const materialRef = useRef(material)
+
   useFrame((state) => {
+    const m = materialRef.current
+    if (!m) return
+    m.uniforms.uTime.value = state.clock.elapsedTime
     const cam = state.camera as THREE.PerspectiveCamera
     // very gentle mouse-reactive camera drift
     const tx = THREE.MathUtils.lerp(cam.position.x, mouse.current.x * 12, 0.07)
@@ -63,14 +69,6 @@ export function SoftOrbit() {
     [],
   )
   const meshRef = useRef<THREE.Mesh<THREE.IcosahedronGeometry, THREE.ShaderMaterial> | null>(null)
-  const materialRef = useRef(material)
-
-  // Advance the shader time uniform each frame. The uniform is mutated through
-  // a ref rather than the hook result itself, keeping the React Compiler happy.
-  useFrame((state) => {
-    const m = materialRef.current
-    if (m) m.uniforms.uTime.value = state.clock.elapsedTime
-  })
 
   return (
     <div
@@ -102,7 +100,7 @@ export function SoftOrbit() {
         <ambientLight intensity={0.5} />
         <pointLight position={[45, 55, 45]} intensity={1.1} />
         <pointLight position={[-45, -30, 50]} intensity={0.45} />
-        <OrbitAnimator mouse={mouse} />
+        <OrbitAnimator material={material} mouse={mouse} />
         <mesh ref={meshRef} geometry={geometry} material={material} />
       </Canvas>
     </div>
