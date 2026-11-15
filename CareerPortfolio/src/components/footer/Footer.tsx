@@ -7,7 +7,7 @@ export function Footer() {
           <div className="text-xs text-soft mt-2">IT Systems Administrator — Owensboro, Kentucky</div>
         </div>
         <div className="text-xs text-soft">
-          braden.psn@hotmail.com &bull; (270) 903-3820
+          braden.psn@hotmail.com
         </div>
       </div>
       <div className="text-xs text-soft mt-6">

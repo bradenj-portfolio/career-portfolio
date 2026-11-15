@@ -4,7 +4,6 @@ import { Button } from '../../components/ui/Button'
 
 const CONTACTS = [
   { kind: '✉️', label: 'Email', text: 'braden.psn@hotmail.com', href: 'mailto:braden.psn@hotmail.com' },
-  { kind: '📞', label: 'Phone', text: '(270) 903-3820', href: 'tel:+12709033820' },
   { kind: '📍', label: 'Location', text: 'Owensboro, Kentucky', href: '#' },
 ]
 
