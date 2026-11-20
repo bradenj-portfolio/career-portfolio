@@ -6,28 +6,27 @@ const SYSTEMS = [
   {
     title: 'Netplay & Steam',
     desc:
-      'Mirror networking over Steamworks. Dead Exodus is in playtest on Steam (App 5367660). Lobby, fireteam and strike matchmaking run over Steam.',
+      'Co-op zombie extraction shooter. Mirror networking over Steamworks; Dead Exodus is in playtest on Steam (App 5367660).',
   },
   {
-    title: 'Isometric conversion',
+    title: 'Unity 6 (URP)',
     desc:
-      'Whole game moved to a Diablo 2 / Path of Exile-style isometric view with click-to-move and a WASD toggle.',
+      'Built in Unity 6 with the Universal Render Pipeline — custom lighting, post-processing and rendering systems.',
   },
   {
-    title: 'Combat systems',
-    desc: 'Parry, Elden Ring-style lock-on, head weak spots, and grab & throw with impact tiers.',
+    title: 'Extraction & strike flow',
+    desc:
+      'Drop-in co-op extraction: push with your team to objectives, exfil with loot. Solo, host and join flows.',
   },
   {
-    title: 'Progression & loot',
-    desc: 'Level 100 cap, classless skill trees, six loot tiers, affixes and crafting (10 into 1).',
+    title: 'Combat & systems',
+    desc:
+      'Tactical gunplay, parry, lock-on, and weapon systems built from the ground up in-house.',
   },
   {
-    title: 'Tools & kits',
-    desc: 'Offline dev tools, Blender pipelines, reusable prefab kits and rules tests for pure C# assemblies.',
-  },
-  {
-    title: 'Strike flow',
-    desc: 'Linear strikes — drop in, push to the final boss, get loot. Solo, host and join flows.',
+    title: 'Dev tools & pipelines',
+    desc:
+      'Offline rules tests, Blender asset pipelines, reusable prefab kits and build automation tools.',
   },
 ]
 
@@ -47,8 +46,8 @@ export function DeadExodus() {
               Dead Exodus
             </motion.h2>
             <p className="de-sub">
-              Co-op strike shooter in Unity 6 (URP). Linear strikes — drop in, push to the final
-              boss, get loot. Built with Mirror over Steam networking.
+              Co-op zombie extraction shooter in Unity 6 (URP). Drop in with your team, push to
+              objectives and exfil with loot. Mirror over Steam networking.
             </p>
           </div>
           <div className="de-actions">

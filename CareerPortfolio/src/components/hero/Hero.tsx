@@ -27,7 +27,7 @@ const PROJECTS = [
     title: 'Dead Exodus',
     type: 'Game Development',
     description:
-      'Co-op strike shooter in Unity 6 (URP), now in playtest on Steam. Networking, isometric conversion, combat, progression, loot and dev tools.',
+      'Co-op zombie extraction shooter in Unity 6 (URP), now in playtest on Steam. Networking, extraction flow, combat and dev tools.',
   },
 ]
 
@@ -46,12 +46,12 @@ export function Hero() {
               Projects
             </motion.h1>
             <motion.p
-              className="text-lg text-soft max-w-lg"
+              className="text-lg text-soft max-w-lg mb-8"
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.2 }}
             >
-              Things I build, break, and learn with — from enterprise infrastructure to AI and the home lab.
+              Things I build, break, and learn with.
             </motion.p>
 
             {/* Featured project spotlight */}
