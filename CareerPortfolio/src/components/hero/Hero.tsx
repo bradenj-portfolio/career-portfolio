@@ -23,6 +23,12 @@ const PROJECTS = [
     description:
       'A home server and networking sandbox for learning and experimentation. Self-hosted services, NAS, and a place to test what breaks (and how to fix it) before it hits production.',
   },
+  {
+    title: 'Dead Exodus',
+    type: 'Game Development',
+    description:
+      'Co-op strike shooter in Unity 6 (URP), now in playtest on Steam. Networking, isometric conversion, combat, progression, loot and dev tools.',
+  },
 ]
 
 export function Hero() {

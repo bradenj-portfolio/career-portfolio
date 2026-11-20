@@ -1,6 +1,7 @@
 import './index.css'
 import { Nav } from './components/nav/Nav'
 import { Hero } from './components/hero/Hero'
+import { DeadExodus } from './components/deadexodus/DeadExodus'
 import { About } from './components/about/About'
 import { Experience } from './components/experience/Experience'
 import { Skills } from './components/skills/Skills'
@@ -14,6 +15,7 @@ export default function App() {
       <a href="#contact" className="skip">Skip to contact</a>
       <Nav />
       <Hero />
+      <DeadExodus />
       <About />
       <Experience />
       <Skills />

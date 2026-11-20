@@ -555,6 +555,138 @@ html[data-theme='dark'] .nav-bar,
 .contact-text a { color: var(--text-soft); }
 .contact-text a:hover { color: var(--accent); }
 
+/* ===== Dead Exodus section (dark, separate from resume) ===== */
+.section-dark {
+  background: #0a0c12;
+  color: var(--text);
+}
+.de-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: flex-start;
+  margin-bottom: 6px;
+}
+.de-brand { flex: 1; min-width: 0; }
+.de-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #a59cff;
+  padding: 4px 10px;
+  border: 1px solid rgba(165, 156, 255, 0.35);
+  border-radius: 999px;
+  margin-bottom: 10px;
+  background: rgba(165, 156, 255, 0.08);
+}
+.de-title {
+  font-size: 40px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin: 0 0 12px;
+  color: var(--text);
+}
+.de-sub {
+  font-size: 16px;
+  color: var(--text-soft);
+  line-height: 1.6;
+  max-width: 460px;
+}
+.de-actions { flex-shrink: 0; margin-top: 10px; }
+.de-steam-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 15px;
+  color: #fff;
+  background: #000;
+  border: 1px solid #000;
+  padding: 10px 18px;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: 0.2s;
+}
+.de-steam-link:hover {
+  background: #111;
+  border-color: #333;
+}
+.de-steam-link span { font-weight: 400; }
+
+.de-body {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 40px;
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .de-head { flex-direction: column; align-items: stretch; }
+  .de-actions { margin-top: 14px; }
+  .de-body { grid-template-columns: 1fr; }
+}
+.de-system-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+.de-system-card .card-head { color: var(--text); }
+.de-system-card .card-body { color: var(--text-soft); }
+
+.de-visual-wrap {
+  display: flex;
+  justify-content: center;
+  padding-top: 8px;
+}
+.de-visual {
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+  aspect-ratio: 4 / 3;
+  background: radial-gradient(circle at 50% 50%, rgba(165, 156, 255, 0.10), transparent 70%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  overflow: hidden;
+}
+.de-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(122, 107, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(122, 107, 255, 0.08) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(circle at 50% 50%, black 60%, transparent 100%);
+  animation: de-pan 12s linear infinite;
+}
+.de-node {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  background: #a59cff;
+  border-radius: 50%;
+  box-shadow: 0 0 14px rgba(165, 156, 255, 0.6);
+  transform: translate(-50%, -50%);
+  animation: de-pulse 2.5s ease-in-out infinite;
+}
+@keyframes de-pan {
+  from { background-position: 0 0; }
+  to { background-position: 40px 40px; }
+}
+@keyframes de-pulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.9; }
+  50% { transform: translate(-50%, -50%) scale(1.35); opacity: 0.6; }
+}
+
+/* 3-col grid */
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 900px) {
+  .grid-3 { grid-template-columns: 1fr; }
+}
+
+
 /* hero ambiance: subtle glow orb (pure CSS, no heavy 3D) */
 .hero-visual {
   position: relative;
